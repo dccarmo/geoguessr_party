@@ -8,8 +8,6 @@ ENV SECRET_KEY_BASE=$SECRET_KEY_BASE_ARG
 
 RUN echo $DATABASE_URL
 
-RUN nslookup srv-captain--geoguessr-party-db
-
 WORKDIR /usr/src/geoguessr_party
 
 COPY . .
@@ -19,12 +17,13 @@ COPY . .
 RUN mix local.hex --force
 RUN mix local.rebar --force
 
-RUN mix setup
+RUN mix deps.get
 
 RUN MIX_ENV=prod mix compile
 
 # Assets
 
+RUN npm install --prefix assets
 RUN npm run deploy --prefix ./assets
 
 RUN mix phx.digest
