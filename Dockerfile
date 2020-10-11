@@ -3,6 +3,8 @@ FROM elixir:alpine
 ENV DATABASE_URL=${DATABASE_URL}
 ENV SECRET_KEY_BASE=${SECRET_KEY_BASE}
 
+RUN echo ${DATABASE_URL}
+
 WORKDIR /usr/src/geoguessr_party
 
 COPY . .
