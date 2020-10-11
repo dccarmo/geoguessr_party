@@ -8,8 +8,6 @@ ENV SECRET_KEY_BASE=$SECRET_KEY_BASE_ARG
 
 RUN echo $DATABASE_URL
 
-RUN ping http://srv-captain--geoguessr-party-db:5432
-
 RUN telnet srv-captain--geoguessr-party-db 5432
 
 WORKDIR /usr/src/geoguessr_party
