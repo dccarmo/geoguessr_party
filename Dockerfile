@@ -23,7 +23,7 @@ RUN MIX_ENV=prod mix compile
 
 RUN apk add npm
 
-RUN npm install --previs ./assets
+RUN npm install --prefix ./assets
 RUN npm run deploy --prefix ./assets
 
 RUN mix phx.digest
