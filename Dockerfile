@@ -32,4 +32,4 @@ RUN mix phx.digest
 
 EXPOSE 4001
 
-CMD PORT=4001 mix ecto.setup && mix phx.server
+CMD mix ecto.migrate && PORT=4001 mix phx.server
