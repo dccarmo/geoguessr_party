@@ -10,7 +10,9 @@ COPY . .
 
 RUN apk add elixir
 
-RUN echo y | mix local.hex
+RUN mix local.hex --force
+
+RUN mix local.rebar --force
 
 RUN mix deps.get --only prod
 
