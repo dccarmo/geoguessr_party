@@ -1,5 +1,7 @@
-FROM postgres:alpine
+FROM alpine:latest
+
+RUN apk add postgres
 
 RUN apk add elixir
-RUN mix local.hex
 
+RUN mix local.hex | y
