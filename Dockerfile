@@ -1,6 +1,5 @@
-FROM postgres:alpine
+FROM elixir:alpine
 
-ENV POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
 ENV DATABASE_URL=${DATABASE_URL}
 ENV SECRET_KEY_BASE=${SECRET_KEY_BASE}
 
@@ -9,8 +8,6 @@ WORKDIR /usr/src/geoguessr_party
 COPY . .
 
 # Elixir
-
-RUN apk add elixir
 
 RUN mix local.hex --force
 RUN mix local.rebar --force
