@@ -17,7 +17,7 @@ COPY . .
 RUN mix local.hex --force
 RUN mix local.rebar --force
 
-RUN mix deps.get
+RUN MIX_ENV=prod mix setup
 
 RUN MIX_ENV=prod mix compile
 
@@ -25,7 +25,7 @@ RUN MIX_ENV=prod mix compile
 
 RUN apk add --update npm
 
-RUN npm install --prefix assets
+RUN npm install --prefix ./assets
 RUN npm run deploy --prefix ./assets
 
 RUN mix phx.digest
