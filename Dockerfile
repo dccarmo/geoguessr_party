@@ -8,7 +8,7 @@ ENV SECRET_KEY_BASE=$SECRET_KEY_BASE_ARG
 
 RUN echo $DATABASE_URL
 
-RUN telnet srv-captain--geoguessr-party-db 5432
+RUN nslookup srv-captain--geoguessr-party-db
 
 WORKDIR /usr/src/geoguessr_party
 
