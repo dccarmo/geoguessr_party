@@ -7,20 +7,17 @@ WORKDIR /usr/src/geoguessr_party
 
 COPY . .
 
-# Elixir
+# Server
 
 RUN mix local.hex --force
 RUN mix local.rebar --force
 
-RUN mix deps.get --only prod
+RUN mix setup
 
 RUN MIX_ENV=prod mix compile
 
-# npm
+# Assets
 
-RUN apk add npm
-
-RUN npm install --prefix ./assets
 RUN npm run deploy --prefix ./assets
 
 RUN mix phx.digest
