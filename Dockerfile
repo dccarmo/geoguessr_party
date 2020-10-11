@@ -2,4 +2,4 @@ FROM postgres:alpine
 
 RUN apk add elixir
 
-RUN mix local.hex | y
+RUN echo y | mix local.hex
