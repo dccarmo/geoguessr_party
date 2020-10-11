@@ -17,8 +17,7 @@ COPY . .
 RUN mix local.hex --force
 RUN mix local.rebar --force
 
-RUN MIX_ENV=prod mix setup
-
+RUN MIX_ENV=prod mix deps.get
 RUN MIX_ENV=prod mix compile
 
 # Assets
@@ -28,10 +27,10 @@ RUN apk add --update npm
 RUN npm install --prefix ./assets
 RUN npm run deploy --prefix ./assets
 
-RUN mix phx.digest
+RUN MIX_ENV=prod mix phx.digest
 
 # Start
 
 EXPOSE 4001
 
-CMD PORT=4001 MIX_ENV=prod mix phx.server
+CMD PORT=4001 MIX_ENV=prod mix ecto.steup && mix phx.server
