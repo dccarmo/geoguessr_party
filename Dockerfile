@@ -1,6 +1,4 @@
-FROM alpine:latest
-
-RUN apk add postgres
+FROM postgres:alpine
 
 RUN apk add elixir
 
