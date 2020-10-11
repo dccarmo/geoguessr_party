@@ -6,8 +6,6 @@ ARG SECRET_KEY_BASE_ARG=${SECRET_KEY_BASE_ARG}
 ENV DATABASE_URL=$DATABASE_URL_ARG
 ENV SECRET_KEY_BASE=$SECRET_KEY_BASE_ARG
 
-RUN echo $DATABASE_URL
-
 WORKDIR /usr/src/geoguessr_party
 
 COPY . .
@@ -33,4 +31,4 @@ RUN MIX_ENV=prod mix phx.digest
 
 EXPOSE 4001
 
-CMD PORT=4001 MIX_ENV=prod mix ecto.steup && mix phx.server
+CMD PORT=4001 MIX_ENV=prod mix ecto.setup && mix phx.server
