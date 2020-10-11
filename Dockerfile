@@ -23,6 +23,8 @@ RUN MIX_ENV=prod mix compile
 
 # Assets
 
+RUN apk add --update npm
+
 RUN npm install --prefix assets
 RUN npm run deploy --prefix ./assets
 
