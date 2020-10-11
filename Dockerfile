@@ -8,21 +8,27 @@ WORKDIR /usr/src/geoguessr_party
 
 COPY . .
 
+# Elixir
+
 RUN apk add elixir
 
-RUN apk add npm
-
 RUN mix local.hex --force
-
 RUN mix local.rebar --force
 
 RUN mix deps.get --only prod
 
 RUN MIX_ENV=prod mix compile
 
+# npm
+
+RUN apk add npm
+
+RUN npm install --previs ./assets
 RUN npm run deploy --prefix ./assets
 
 RUN mix phx.digest
+
+# Start
 
 EXPOSE 4001
 
