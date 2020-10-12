@@ -19,12 +19,9 @@ defmodule GeoguessrPartyWeb.Router do
     get "/", PageController, :index
   end
 
-
-
   # Other scopes may use custom stacks.
   scope "/api", GeoguessrPartyWeb do
     pipe_through :api
-
 
     # resources "/party", PartyController, only: [:create, :show]
     # resources "/apigeoguessr", GeoguessrController, only: [:show]

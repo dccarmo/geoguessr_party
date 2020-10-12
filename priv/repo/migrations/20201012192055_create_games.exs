@@ -3,7 +3,7 @@ defmodule GeoguessrParty.Repo.Migrations.CreateGames do
 
   def change do
     create table(:games) do
-      add :geoguessr_id, :string, null: false
+      add :geoguessr_id, :string
 
       timestamps()
     end
