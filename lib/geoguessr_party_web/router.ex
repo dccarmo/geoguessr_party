@@ -5,7 +5,7 @@ defmodule GeoguessrPartyWeb.Router do
     plug :accepts, ["html"]
     plug :fetch_session
     plug :fetch_flash
-    # plug :protect_from_forgery
+    plug :protect_from_forgery
     plug :put_secure_browser_headers
   end
 
@@ -17,17 +17,18 @@ defmodule GeoguessrPartyWeb.Router do
     pipe_through :browser
 
     get "/", PageController, :index
-
-    resources "/api/party", PartyController, only: [:create, :show]
-    resources "/api/geoguessr", GeoguessrController, only: [:show]
   end
 
 
 
   # Other scopes may use custom stacks.
-  # scope "/api", GeoguessrPartyWeb do
-  #   pipe_through :api
-  # end
+  scope "/api", GeoguessrPartyWeb do
+    pipe_through :api
+
+
+    # resources "/party", PartyController, only: [:create, :show]
+    # resources "/apigeoguessr", GeoguessrController, only: [:show]
+  end
 
   # Enables LiveDashboard only for development`
   #

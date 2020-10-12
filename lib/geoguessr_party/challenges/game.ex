@@ -1,18 +1,17 @@
-defmodule GeoguessrParty.Game.Party do
+defmodule GeoguessrParty.Challenges.Game do
   use Ecto.Schema
   import Ecto.Changeset
 
-  schema "parties" do
+  schema "games" do
     field :geoguessr_id, :string
 
     timestamps()
   end
 
   @doc false
-  def changeset(party, attrs) do
-    party
+  def changeset(game, attrs) do
+    game
     |> cast(attrs, [:geoguessr_id])
     |> validate_required([:geoguessr_id])
-    |> unique_constraint(:geoguessr_id)
   end
 end
