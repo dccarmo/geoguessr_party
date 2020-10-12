@@ -38,6 +38,22 @@ defmodule GeoguessrParty.Game do
   def get_party!(id), do: Repo.get!(Party, id)
 
   @doc """
+  Gets a single party by Geoguessr ID.
+
+  Raises `Ecto.NoResultsError` if the Party does not exist.
+
+  ## Examples
+
+      iex> get_party_by_geoguessr_id!(123)
+      %Party{}
+
+      iex> get_party_by_geoguessr_id!(456)
+      ** (Ecto.NoResultsError)
+
+  """
+  def get_party_by_geoguessr_id!(geoguessr_id), do: Party |> Repo.get_by!(geoguessr_id: geoguessr_id)
+
+  @doc """
   Creates a party.
 
   ## Examples

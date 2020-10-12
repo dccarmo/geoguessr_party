@@ -1,8 +1,6 @@
 defmodule GeoguessrPartyWeb.Router do
   use GeoguessrPartyWeb, :router
 
-  resources "/api/party", GeoguessrPartyWeb.PartyController, except: [:new, :edit]
-
   pipeline :browser do
     plug :accepts, ["html"]
     plug :fetch_session
@@ -19,14 +17,19 @@ defmodule GeoguessrPartyWeb.Router do
     pipe_through :browser
 
     get "/", PageController, :index
+
+    resources "/api/party", PartyController, only: [:create, :show]
+    resources "/api/geoguessr", GeoguessrController, only: [:show]
   end
+
+
 
   # Other scopes may use custom stacks.
   # scope "/api", GeoguessrPartyWeb do
   #   pipe_through :api
   # end
 
-  # Enables LiveDashboard only for development
+  # Enables LiveDashboard only for development`
   #
   # If you want to use the LiveDashboard in production, you should put
   # it behind authentication and allow only admins to access it.
