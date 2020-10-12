@@ -13,5 +13,6 @@ defmodule GeoguessrParty.Game.Party do
     party
     |> cast(attrs, [:geoguessr_id])
     |> validate_required([:geoguessr_id])
+    |> unique_constraint(:geoguessr_id)
   end
 end
