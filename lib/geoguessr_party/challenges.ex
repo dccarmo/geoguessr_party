@@ -38,6 +38,22 @@ defmodule GeoguessrParty.Challenges do
   def get_challenge!(id), do: Repo.get!(Challenge, id)
 
   @doc """
+  Gets a single challenge by Geoguessr ID.
+
+  Raises `Ecto.NoResultsError` if the Challenge does not exist.
+
+  ## Examples
+
+      iex> get_challenge_by_geoguessr_id!("123")
+      %Challenge{}
+
+      iex> get_challenge_by_geoguessr_id!("456")
+      ** (Ecto.NoResultsError)
+
+  """
+  def get_challenge_by_geoguessr_id!(geoguessr_id), do: Repo.get_by!(Challenge, geoguessr_id: geoguessr_id)
+
+  @doc """
   Creates a challenge.
 
   ## Examples
