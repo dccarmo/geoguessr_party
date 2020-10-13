@@ -3,12 +3,11 @@ defmodule GeoguessrParty.Repo.Migrations.CreateGames do
 
   def change do
     create table(:games) do
-      add :geoguessr_id, :string
+      add :geoguessr_id, :string, null: false
+      add :challenge_id, references(:challenges), null: false
 
       timestamps()
     end
-
-    create unique_index(:games, [:geoguessr_id])
 
   end
 end

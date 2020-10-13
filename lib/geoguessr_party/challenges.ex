@@ -161,8 +161,9 @@ defmodule GeoguessrParty.Challenges do
       {:error, %Ecto.Changeset{}}
 
   """
-  def create_game(attrs \\ %{}) do
-    %Game{}
+  def create_game(challenge, attrs \\ %{}) do
+    # %Game{}
+    Ecto.build_assoc(challenge, :games, attrs)
     |> Game.changeset(attrs)
     |> Repo.insert()
   end

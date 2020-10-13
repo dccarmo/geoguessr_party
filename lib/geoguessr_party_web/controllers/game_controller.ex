@@ -3,16 +3,19 @@ defmodule GeoguessrPartyWeb.GameController do
 
   alias GeoguessrParty.Challenges
   alias GeoguessrParty.Challenges.Game
+  alias GeoguessrParty.Challenges.Challenge
 
   action_fallback GeoguessrPartyWeb.FallbackController
 
-  def index(conn, _params) do
-    games = Challenges.list_games()
-    render(conn, "index.json", games: games)
-  end
+  # def index(conn, _params) do
+  #   games = Challenges.list_games()
+  #   render(conn, "index.json", games: games)
+  # end
 
-  def create(conn, %{"game" => game_params}) do
-    with {:ok, %Game{} = game} <- Challenges.create_game(game_params) do
+  def create(conn, %{"challenge_geoguessr_id" => challenge_geoguessr_id, "game" => game_params}) do
+    challenge = Challenges.get_challenge_by_geoguessr_id!(challenge_geoguessr_id)
+
+    with {:ok, %Game{} = game} <- Challenges.create_game(challenge, game_params) do
       conn
       |> put_status(:created)
       |> put_resp_header("location", Routes.game_path(conn, :show, game))
@@ -25,19 +28,19 @@ defmodule GeoguessrPartyWeb.GameController do
     render(conn, "show.json", game: game)
   end
 
-  def update(conn, %{"id" => id, "game" => game_params}) do
-    game = Challenges.get_game!(id)
+  # def update(conn, %{"id" => id, "game" => game_params}) do
+  #   game = Challenges.get_game!(id)
 
-    with {:ok, %Game{} = game} <- Challenges.update_game(game, game_params) do
-      render(conn, "show.json", game: game)
-    end
-  end
+  #   with {:ok, %Game{} = game} <- Challenges.update_game(game, game_params) do
+  #     render(conn, "show.json", game: game)
+  #   end
+  # end
 
-  def delete(conn, %{"id" => id}) do
-    game = Challenges.get_game!(id)
+  # def delete(conn, %{"id" => id}) do
+  #   game = Challenges.get_game!(id)
 
-    with {:ok, %Game{}} <- Challenges.delete_game(game) do
-      send_resp(conn, :no_content, "")
-    end
-  end
+  #   with {:ok, %Game{}} <- Challenges.delete_game(game) do
+  #     send_resp(conn, :no_content, "")
+  #   end
+  # end
 end

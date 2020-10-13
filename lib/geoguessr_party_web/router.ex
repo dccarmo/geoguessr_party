@@ -24,7 +24,8 @@ defmodule GeoguessrPartyWeb.Router do
     pipe_through :api
 
     post "/challenge", ChallengeController, :create
-    get "/challenge/:geoguessr_id", ChallengeController, :show_by_geoguessr_id
+    get "/challenge/:geoguessr_id", ChallengeController, :show
+    post "/challenge/:challenge_geoguessr_id/game", GameController, :create
 
     # resources "/party", PartyController, only: [:create, :show]
     # resources "/apigeoguessr", GeoguessrController, only: [:show]

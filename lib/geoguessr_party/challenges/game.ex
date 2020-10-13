@@ -6,6 +6,8 @@ defmodule GeoguessrParty.Challenges.Game do
     field :geoguessr_id, :string
 
     timestamps()
+
+    belongs_to :challenge, GeoguessrParty.Challenges.Challenge
   end
 
   @doc false
@@ -13,5 +15,6 @@ defmodule GeoguessrParty.Challenges.Game do
     game
     |> cast(attrs, [:geoguessr_id])
     |> validate_required([:geoguessr_id])
+    |> unique_constraint(:geoguessr_id)
   end
 end
