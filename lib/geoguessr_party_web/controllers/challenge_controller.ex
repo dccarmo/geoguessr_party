@@ -1,4 +1,6 @@
 defmodule GeoguessrPartyWeb.ChallengeController do
+  @moduledoc tags: ["challenges"]
+
   use GeoguessrPartyWeb, :controller
 
   alias GeoguessrParty.Challenges
@@ -12,6 +14,13 @@ defmodule GeoguessrPartyWeb.ChallengeController do
   #   render(conn, "index.json", challenges: challenges)
   # end
 
+  @doc """
+  Create a new challenge
+  """
+
+  @doc responses: [
+         ok: {"User List Response", "application/json", GeoguessrPartyWeb.Schema.UsersResponse}
+       ]
   def create(conn, %{"challenge" => challenge_params}) do
     with {:ok, %Challenge{} = challenge} <- Challenges.create_challenge(challenge_params) do
       conn

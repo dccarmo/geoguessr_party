@@ -11,6 +11,7 @@ defmodule GeoguessrPartyWeb.Router do
 
   pipeline :api do
     plug :accepts, ["json"]
+    plug OpenApiSpex.Plug.PutApiSpec, module: GeoguessrPartyWeb.ApiSpec
   end
 
   scope "/", GeoguessrPartyWeb do
@@ -29,6 +30,13 @@ defmodule GeoguessrPartyWeb.Router do
 
     # resources "/party", PartyController, only: [:create, :show]
     # resources "/apigeoguessr", GeoguessrController, only: [:show]
+  end
+
+  scope "/api", OpenApiSpex do
+    pipe_through :api
+
+    get "/openapi", Plug.RenderSpec, []
+    get "/swaggerui", Plug.SwaggerUI, path: "/api/openapi"
   end
 
   # Enables LiveDashboard only for development`
