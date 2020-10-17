@@ -26,6 +26,7 @@ defmodule GeoguessrPartyWeb.Router do
     post "/challenge", ChallengeController, :create
     get "/challenge/:geoguessr_id", ChallengeController, :show
     post "/challenge/:challenge_geoguessr_id/game", GameController, :create
+    delete "/challenge/:geoguessr_id", ChallengeController, :delete
 
     # resources "/party", PartyController, only: [:create, :show]
     # resources "/apigeoguessr", GeoguessrController, only: [:show]

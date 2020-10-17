@@ -34,11 +34,11 @@ defmodule GeoguessrPartyWeb.ChallengeController do
   #   end
   # end
 
-  # def delete(conn, %{"id" => id}) do
-  #   challenge = Challenges.get_challenge!(id)
+  def delete(conn, %{"geoguessr_id" => geoguessr_id}) do
+    challenge = Challenges.get_challenge_by_geoguessr_id!(geoguessr_id)
 
-  #   with {:ok, %Challenge{}} <- Challenges.delete_challenge(challenge) do
-  #     send_resp(conn, :no_content, "")
-  #   end
-  # end
+    with {:ok, %Challenge{}} <- Challenges.delete_challenge(challenge) do
+      send_resp(conn, :no_content, "")
+    end
+  end
 end
