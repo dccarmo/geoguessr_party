@@ -9,6 +9,7 @@ defmodule GeoguessrParty.Challenges.Game do
 
     belongs_to :challenge, GeoguessrParty.Challenges.Challenge
     has_many :guesses, GeoguessrParty.Challenges.Guess
+    has_one :player, GeoguessrParty.Challenges.Player
   end
 
   @doc false

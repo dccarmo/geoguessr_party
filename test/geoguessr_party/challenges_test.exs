@@ -181,4 +181,65 @@ defmodule GeoguessrParty.ChallengesTest do
       assert %Ecto.Changeset{} = Challenges.change_guess(guess)
     end
   end
+
+  describe "players" do
+    alias GeoguessrParty.Challenges.Player
+
+    @valid_attrs %{geoguessr_id: "some geoguessr_id", nick: "some nick"}
+    @update_attrs %{geoguessr_id: "some updated geoguessr_id", nick: "some updated nick"}
+    @invalid_attrs %{geoguessr_id: nil, nick: nil}
+
+    def player_fixture(attrs \\ %{}) do
+      {:ok, player} =
+        attrs
+        |> Enum.into(@valid_attrs)
+        |> Challenges.create_player()
+
+      player
+    end
+
+    test "list_players/0 returns all players" do
+      player = player_fixture()
+      assert Challenges.list_players() == [player]
+    end
+
+    test "get_player!/1 returns the player with given id" do
+      player = player_fixture()
+      assert Challenges.get_player!(player.id) == player
+    end
+
+    test "create_player/1 with valid data creates a player" do
+      assert {:ok, %Player{} = player} = Challenges.create_player(@valid_attrs)
+      assert player.geoguessr_id == "some geoguessr_id"
+      assert player.nick == "some nick"
+    end
+
+    test "create_player/1 with invalid data returns error changeset" do
+      assert {:error, %Ecto.Changeset{}} = Challenges.create_player(@invalid_attrs)
+    end
+
+    test "update_player/2 with valid data updates the player" do
+      player = player_fixture()
+      assert {:ok, %Player{} = player} = Challenges.update_player(player, @update_attrs)
+      assert player.geoguessr_id == "some updated geoguessr_id"
+      assert player.nick == "some updated nick"
+    end
+
+    test "update_player/2 with invalid data returns error changeset" do
+      player = player_fixture()
+      assert {:error, %Ecto.Changeset{}} = Challenges.update_player(player, @invalid_attrs)
+      assert player == Challenges.get_player!(player.id)
+    end
+
+    test "delete_player/1 deletes the player" do
+      player = player_fixture()
+      assert {:ok, %Player{}} = Challenges.delete_player(player)
+      assert_raise Ecto.NoResultsError, fn -> Challenges.get_player!(player.id) end
+    end
+
+    test "change_player/1 returns a player changeset" do
+      player = player_fixture()
+      assert %Ecto.Changeset{} = Challenges.change_player(player)
+    end
+  end
 end
