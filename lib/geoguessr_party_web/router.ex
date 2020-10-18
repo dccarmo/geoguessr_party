@@ -25,11 +25,13 @@ defmodule GeoguessrPartyWeb.Router do
 
     post "/challenge", ChallengeController, :create
     get "/challenge/:geoguessr_id", ChallengeController, :show
-    post "/challenge/:challenge_geoguessr_id/game", GameController, :create
     delete "/challenge/:geoguessr_id", ChallengeController, :delete
 
-    # resources "/party", PartyController, only: [:create, :show]
-    # resources "/apigeoguessr", GeoguessrController, only: [:show]
+    post "/challenge/:challenge_geoguessr_id/game", GameController, :create
+    get "/game/:geoguessr_id", GameController, :show
+
+    post "/game/:game_geoguessr_id/guess", GuessController, :create
+    get "/guess/:id", GuessController, :show
   end
 
   # Enables LiveDashboard only for development`

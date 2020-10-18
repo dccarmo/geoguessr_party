@@ -120,4 +120,65 @@ defmodule GeoguessrParty.ChallengesTest do
       assert %Ecto.Changeset{} = Challenges.change_game(game)
     end
   end
+
+  describe "guesses" do
+    alias GeoguessrParty.Challenges.Guess
+
+    @valid_attrs %{lat: 120.5, lng: 120.5}
+    @update_attrs %{lat: 456.7, lng: 456.7}
+    @invalid_attrs %{lat: nil, lng: nil}
+
+    def guess_fixture(attrs \\ %{}) do
+      {:ok, guess} =
+        attrs
+        |> Enum.into(@valid_attrs)
+        |> Challenges.create_guess()
+
+      guess
+    end
+
+    test "list_guesses/0 returns all guesses" do
+      guess = guess_fixture()
+      assert Challenges.list_guesses() == [guess]
+    end
+
+    test "get_guess!/1 returns the guess with given id" do
+      guess = guess_fixture()
+      assert Challenges.get_guess!(guess.id) == guess
+    end
+
+    test "create_guess/1 with valid data creates a guess" do
+      assert {:ok, %Guess{} = guess} = Challenges.create_guess(@valid_attrs)
+      assert guess.lat == 120.5
+      assert guess.lng == 120.5
+    end
+
+    test "create_guess/1 with invalid data returns error changeset" do
+      assert {:error, %Ecto.Changeset{}} = Challenges.create_guess(@invalid_attrs)
+    end
+
+    test "update_guess/2 with valid data updates the guess" do
+      guess = guess_fixture()
+      assert {:ok, %Guess{} = guess} = Challenges.update_guess(guess, @update_attrs)
+      assert guess.lat == 456.7
+      assert guess.lng == 456.7
+    end
+
+    test "update_guess/2 with invalid data returns error changeset" do
+      guess = guess_fixture()
+      assert {:error, %Ecto.Changeset{}} = Challenges.update_guess(guess, @invalid_attrs)
+      assert guess == Challenges.get_guess!(guess.id)
+    end
+
+    test "delete_guess/1 deletes the guess" do
+      guess = guess_fixture()
+      assert {:ok, %Guess{}} = Challenges.delete_guess(guess)
+      assert_raise Ecto.NoResultsError, fn -> Challenges.get_guess!(guess.id) end
+    end
+
+    test "change_guess/1 returns a guess changeset" do
+      guess = guess_fixture()
+      assert %Ecto.Changeset{} = Challenges.change_guess(guess)
+    end
+  end
 end

@@ -8,6 +8,7 @@ defmodule GeoguessrParty.Challenges.Game do
     timestamps()
 
     belongs_to :challenge, GeoguessrParty.Challenges.Challenge
+    has_many :guesses, GeoguessrParty.Challenges.Guess
   end
 
   @doc false

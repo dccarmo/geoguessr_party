@@ -150,6 +150,22 @@ defmodule GeoguessrParty.Challenges do
   def get_game!(id), do: Repo.get!(Game, id)
 
   @doc """
+  Gets a single game.
+
+  Raises `Ecto.NoResultsError` if the Game does not exist.
+
+  ## Examples
+
+      iex> get_game!(123)
+      %Game{}
+
+      iex> get_game!(456)
+      ** (Ecto.NoResultsError)
+
+  """
+  def get_game_by_geoguessr_id!(geoguessr_id), do: Repo.get_by!(Game, geoguessr_id: geoguessr_id)
+
+  @doc """
   Creates a game.
 
   ## Examples
@@ -213,5 +229,105 @@ defmodule GeoguessrParty.Challenges do
   """
   def change_game(%Game{} = game, attrs \\ %{}) do
     Game.changeset(game, attrs)
+  end
+
+  alias GeoguessrParty.Challenges.Guess
+
+  @doc """
+  Returns the list of guesses.
+
+  ## Examples
+
+      iex> list_guesses()
+      [%Guess{}, ...]
+
+  """
+  def list_guesses do
+    Repo.all(Guess)
+  end
+
+  @doc """
+  Gets a single guess.
+
+  Raises `Ecto.NoResultsError` if the Guess does not exist.
+
+  ## Examples
+
+      iex> get_guess!(123)
+      %Guess{}
+
+      iex> get_guess!(456)
+      ** (Ecto.NoResultsError)
+
+  """
+  def get_guess!(id), do: Repo.get!(Guess, id)
+
+  @doc """
+  Creates a guess.
+
+  ## Examples
+
+      iex> create_guess(%{field: value})
+      {:ok, %Guess{}}
+
+      iex> create_guess(%{field: bad_value})
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def create_guess(game, attrs \\ %{}) do
+    # %Guess{}
+    # |> Guess.changeset(attrs)
+    # |> Repo.insert()
+
+    Ecto.build_assoc(game, :guesses, attrs)
+    |> Guess.changeset(attrs)
+    |> Repo.insert()
+  end
+
+  @doc """
+  Updates a guess.
+
+  ## Examples
+
+      iex> update_guess(guess, %{field: new_value})
+      {:ok, %Guess{}}
+
+      iex> update_guess(guess, %{field: bad_value})
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def update_guess(%Guess{} = guess, attrs) do
+    guess
+    |> Guess.changeset(attrs)
+    |> Repo.update()
+  end
+
+  @doc """
+  Deletes a guess.
+
+  ## Examples
+
+      iex> delete_guess(guess)
+      {:ok, %Guess{}}
+
+      iex> delete_guess(guess)
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def delete_guess(%Guess{} = guess) do
+    Repo.delete(guess)
+  end
+
+  @doc """
+  Returns an `%Ecto.Changeset{}` for tracking guess changes.
+
+  ## Examples
+
+      iex> change_guess(guess)
+      %Ecto.Changeset{data: %Guess{}}
+
+  """
+  def change_guess(%Guess{} = guess, attrs \\ %{}) do
+    Guess.changeset(guess, attrs)
   end
 end

@@ -4,6 +4,7 @@ defmodule GeoguessrPartyWeb.GameController do
   alias GeoguessrParty.Challenges
   alias GeoguessrParty.Challenges.Game
   alias GeoguessrParty.Challenges.Challenge
+  alias GeoguessrParty.Challenges.Guess
 
   action_fallback GeoguessrPartyWeb.FallbackController
 
@@ -18,7 +19,7 @@ defmodule GeoguessrPartyWeb.GameController do
     with {:ok, %Game{} = game} <- Challenges.create_game(challenge, game_params) do
       conn
       |> put_status(:created)
-      |> put_resp_header("location", Routes.game_path(conn, :show, game))
+      |> put_resp_header("location", Routes.game_path(conn, :show, game.geoguessr_id))
       |> render("show.json", game: game)
     end
   end
@@ -27,6 +28,17 @@ defmodule GeoguessrPartyWeb.GameController do
     game = Challenges.get_game!(id)
     render(conn, "show.json", game: game)
   end
+
+  # def guess(conn, %{"game_geoguessr_id" => game_geoguessr_id}) do
+  #   game = Challenges.get_game!(game_geoguessr_id)
+
+  #   with {:ok, %Guess{} = guess} <- Challenges.create_guess(game)
+  #     conn
+  #     |> put_status(:created)
+  #     |> put_resp_header("location", Routes.guess_path(conn, :show, game))
+  #     |> render("show.json", game: game)
+  #   end
+  # end
 
   # def update(conn, %{"id" => id, "game" => game_params}) do
   #   game = Challenges.get_game!(id)
