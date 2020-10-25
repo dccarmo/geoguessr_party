@@ -11,7 +11,8 @@ use Mix.Config
 # before starting your production server.
 config :geoguessr_party, GeoguessrPartyWeb.Endpoint,
   url: [host: "geoguessr-party.caprover.diogocarmo.me", port: 80],
-  cache_static_manifest: "priv/static/cache_manifest.json"
+  cache_static_manifest: "priv/static/cache_manifest.json",
+  check_origin: false,
 
 # Do not print debug messages in production
 config :logger, level: :info
