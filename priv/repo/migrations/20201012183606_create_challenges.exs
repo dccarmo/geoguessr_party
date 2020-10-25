@@ -9,6 +9,5 @@ defmodule GeoguessrParty.Repo.Migrations.CreateChallenges do
     end
 
     create unique_index(:challenges, [:geoguessr_id])
-
   end
 end

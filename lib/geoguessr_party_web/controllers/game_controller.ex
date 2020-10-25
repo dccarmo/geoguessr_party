@@ -13,8 +13,13 @@ defmodule GeoguessrPartyWeb.GameController do
   #   render(conn, "index.json", games: games)
   # end
 
-  def create(conn, %{"challenge_geoguessr_id" => challenge_geoguessr_id, "game" => game_params}) do
+  def create(conn, %{
+        "challenge" => %{"geoguessr_id" => challenge_geoguessr_id},
+        "player" => %{"geoguessr_id" => player_geoguessr_id},
+        "game" => game_params
+      }) do
     challenge = Challenges.get_challenge_by_geoguessr_id!(challenge_geoguessr_id)
+    player = Challenges.get_player_by_geoguessr_id(player_geoguessr_id)
 
     with {:ok, %Game{} = game} <- Challenges.create_game(challenge, game_params) do
       conn

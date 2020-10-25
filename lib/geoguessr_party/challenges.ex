@@ -363,6 +363,24 @@ defmodule GeoguessrParty.Challenges do
   def get_player!(id), do: Repo.get!(Player, id)
 
   @doc """
+  Gets a single player by geoguessr_id.
+
+  Raises `Ecto.NoResultsError` if the Player does not exist.
+
+  ## Examples
+
+      iex> get_player_by_geoguessr_id!(123)
+      %Player{}
+
+      iex> get_player!(456)
+      ** (Ecto.NoResultsError)
+
+  """
+  def get_player_by_geoguessr_id(geoguessr_id), do: Repo.get_by(Player, geoguessr_id: geoguessr_id)
+
+  # do: Repo.get_by!(Game, geoguessr_id: geoguessr_id)
+
+  @doc """
   Creates a player.
 
   ## Examples

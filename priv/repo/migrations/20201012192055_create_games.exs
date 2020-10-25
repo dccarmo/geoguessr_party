@@ -9,5 +9,6 @@ defmodule GeoguessrParty.Repo.Migrations.CreateGames do
       timestamps()
     end
 
+    create unique_index(:games, [:geoguessr_id])
   end
 end

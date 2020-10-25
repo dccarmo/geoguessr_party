@@ -3,6 +3,7 @@ defmodule GeoguessrPartyWeb.UserSocket do
 
   ## Channels
   # channel "room:*", GeoguessrPartyWeb.RoomChannel
+  channel "challenges:*", PhoenixPair.ChallengeChannel
 
   # Socket params are passed from the client and can
   # be used to verify and authenticate a user. After

@@ -27,7 +27,7 @@ defmodule GeoguessrPartyWeb.Router do
     get "/challenge/:geoguessr_id", ChallengeController, :show
     delete "/challenge/:geoguessr_id", ChallengeController, :delete
 
-    post "/challenge/:challenge_geoguessr_id/game", GameController, :create
+    post "/game", GameController, :create
     get "/game/:geoguessr_id", GameController, :show
 
     post "/game/:game_geoguessr_id/guess", GuessController, :create
